@@ -16,6 +16,7 @@ export default class Login extends React.Component {
           if ( val.Username === nameRef.current.value &&
             val.Password === pwdRef.current.value){
               props.updateValidity();
+              props.activeUser(val.Username)
             }
             else{
               alert("Invalid credentials")

@@ -18,7 +18,8 @@ class App extends React.Component {
     super();
     this.state = {
       loginDetails: [],
-      isValid: false
+      isValid: false,
+      activeUser: ""
     };
   }
 
@@ -32,7 +33,13 @@ class App extends React.Component {
     this.setState({
       isValid: !this.state.isValid
     });
-    return <Redirect to="/welcome"/>;
+    return <Redirect to="/welcome" />;
+  };
+
+  setActiveUser = name => {
+    this.setState({
+      activeUser: name
+    });
   };
 
   render() {
@@ -45,9 +52,10 @@ class App extends React.Component {
               this.updateState(val);
             },
             updateValidity: () => {
-              console.log("update validity")
+              console.log("update validity");
               this.updateValidity();
-            }
+            },
+            activeUser: (name)=>{this.setActiveUser(name)}
           }}
         >
           <Router>
@@ -58,7 +66,9 @@ class App extends React.Component {
                 exact
                 strict
                 path="/welcome"
-                component={() => (this.state.isValid ? <Welcome /> : <Redirect to="/"/> )}
+                component={() =>
+                  this.state.isValid ? <Welcome /> : <Redirect to="/" />
+                }
               />
             </Switch>
           </Router>
